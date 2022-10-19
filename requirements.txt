@@ -1,0 +1,14 @@
+# Codestyle
+flake8==5.0.4
+black==22.8.0
+# Backend
+uvicorn==0.18.*
+gunicorn==20.1.*
+fastapi==0.83.*
+python-multipart==0.0.5
+# ML
+pandas
+seaborn
+sklearn
+compress-fasttext
+gdown

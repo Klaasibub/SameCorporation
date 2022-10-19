@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 120
+exclude = .git,.venv,__pycache__,migrations,face_sdk
+extend-ignore = F722,F401,F541,F841,F821,C901,F811
+max-complexity = 15
