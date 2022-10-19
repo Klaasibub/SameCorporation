@@ -1,9 +1,9 @@
-from random import randint
+import abydos.distance as abd
 import gradio as gr
 
 
-def company_comparator(comany_1, company_2):
-    if randint(0, 1) == 0:
+def company_comparator(company_1, company_2):
+    if abd.DiscountedLevenshtein().sim(company_1, company_2) > 0.6:
         return "The company names are the same!"
     return "These are completely different companies."
 

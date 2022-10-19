@@ -12,3 +12,4 @@ seaborn
 sklearn
 compress-fasttext
 gdown
+abydos==0.5.0  # Discounted Levenshtein
