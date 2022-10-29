@@ -32,13 +32,11 @@ Recommended PC specifications:
 | GPU (optional)  | NVIDIA GeForce GTX 1050 6gb     |
 | RAM  | Crucial DDR3 1600MHz 8GB |
 
+---
 
 ## Comparsion
 
-| Method | F1 | Accuracy | Precision | Recall|
-|--------|----|----------|-----------|-------|
-| tf-idf + log reg | 0.5009 | 0.9914 | 0.4336 | 0.593 |
-| idf | 0.5204 | 0.9918 | 0.457 | 0.6042 |
+![Table](./media/table.png) 
 
 ---
 
