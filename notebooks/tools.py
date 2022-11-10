@@ -6,10 +6,11 @@ from utils import get_unique_values
 from sklearn.metrics import (
     accuracy_score, precision_recall_fscore_support
 )
+from methods import Method
 from typing import List
 
 
-def compute_v2(dfct: pd.DataFrame, method):
+def compute_v2(dfct: pd.DataFrame, method: Method):
     res = dfct.copy(deep=True)
     start = time.perf_counter()
     method.cache(get_unique_values(res))
@@ -29,7 +30,7 @@ def validate_v2(res: pd.DataFrame, threshold: int):
     return a, p[1], r[1], f[1]
 
 
-def benchmark_v2_core(dfc: pd.DataFrame, method, top_n: int, thresholds: List[int], ax=plt, title="Metrics", **kwargs):
+def benchmark_v2_core(dfc: pd.DataFrame, method: Method, top_n: int, thresholds: List[int], ax=plt, title="Metrics", **kwargs):
     dfct = tokenize(dfc, top_n, **kwargs)
     res, dt = compute_v2(dfct, method)
     a_scores, p_scores, r_scores, f_scores = [], [], [], []
@@ -57,7 +58,7 @@ def benchmark_v2_core(dfc: pd.DataFrame, method, top_n: int, thresholds: List[in
     print(f"Performance: {dt}")
 
 
-def benchmark_v2(dfc: pd.DataFrame, method, top_n: int, suptitle: str):
+def benchmark_v2(dfc: pd.DataFrame, method: Method, top_n: int, suptitle: str):
     fig, ax = plt.subplots(1, 2, figsize=(12.8, 4.8))
     thresholds = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.75, 0.8, 0.9]
     kwargs_list = ({}, {"stemming": True, "case": False})

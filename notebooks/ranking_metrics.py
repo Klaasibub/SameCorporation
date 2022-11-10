@@ -1,15 +1,16 @@
 import numpy as np
 import pandas as pd
 from utils import get_unique_values
+from typing import Dict, Set
 
 
-def get_sims(dfn: pd.DataFrame, s2v, name):
+def get_sims(dfn: pd.DataFrame, s2v: Dict[str, np.ndarray], name: str) -> pd.Series:
     vector = s2v[name]
     sims = dfn["vector"].apply(lambda x: np.dot(x, vector))
     return sims
 
 
-def get_relatives(dfc: pd.DataFrame, name):
+def get_relatives(dfc: pd.DataFrame, name: str):
     dfcd = dfc[dfc["is_duplicate"] == 1]
     left = dfcd[dfcd["name_1"] == name]
     right = dfcd[dfcd["name_2"] == name]
@@ -19,13 +20,13 @@ def get_relatives(dfc: pd.DataFrame, name):
     return relatives
 
 
-def precision_at_k(sims, relatives, k=5):
+def precision_at_k(sims: pd.Series, relatives: Set[str], k=5):
     top_k_sims = sims.nlargest(n=k)
     top_k_names = top_k_sims.index.to_list()
     return sum([int(name in relatives) for name in top_k_names]) / k
 
 
-def average_precision_at_k(sims, rels, k=5):
+def average_precision_at_k(sims: pd.Series, rels: Set[str], k=5):
     vs, precisions = [], []
     top_k_names = sims.nlargest(n=k).index.to_list()
     for k_i in range(1, k + 1):
@@ -37,14 +38,14 @@ def average_precision_at_k(sims, rels, k=5):
     return sum(precisions) / sum(vs)
 
 
-def mean_average_precision_at_k(dfc, dfn, k=5):
+def mean_average_precision_at_k(dfc: pd.DataFrame, dfn: pd.DataFrame, s2v: Dict[str, np.ndarray], k=5):
     aprs = []
     names_unique = get_unique_values(dfc, names=["name_1", "name_2"])
     for i, name in enumerate(names_unique):
         print(f"\r{i+1}/{len(names_unique)}", end="")
-        sims = get_sims(dfn, name)
+        sims = get_sims(dfn, s2v, name)
         relatives = get_relatives(dfc, name)
-        apr = average_precision_at_k(sims, relatives, k=5)
+        apr = average_precision_at_k(sims, relatives, k=k)
         aprs.append(apr)
     print()
     return sum(aprs) / len(names_unique)

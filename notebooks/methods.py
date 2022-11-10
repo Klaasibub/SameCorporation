@@ -2,10 +2,12 @@ import pylev
 from numpy import dot
 from numpy.linalg import norm
 from functools import lru_cache
+from sentence_transformers import SentenceTransformer
+from compress_fasttext import CompressedFastTextKeyedVectors
 from typing import List
 
 
-class Base:
+class Method:
     def __init__(self, names=["name_1_tokens", "name_2_tokens"]):
         self.names = names
     def calc(self, x_words: List[str], y_words: List[str]):
@@ -17,7 +19,7 @@ class Base:
         return self.calc(name_1, name_2)
 
 
-class Rule(Base):
+class Rule(Method):
     def __init__(self):
         super().__init__()
     def calc(self, x_words: List[str], y_words: List[str]):
@@ -28,7 +30,7 @@ class Rule(Base):
         return counter / max(len(x_words), len(y_words))
 
 
-class Levenshtein(Base):
+class Levenshtein(Method):
     def __init__(self):
         super().__init__()
         self.distance = lru_cache()(pylev.levenshtein)
@@ -37,8 +39,8 @@ class Levenshtein(Base):
         return 1 - distance/max(len(x_words), len(y_words))
 
 
-class Fasttext(Base):
-    def __init__(self, model):
+class Fasttext(Method):
+    def __init__(self, model: CompressedFastTextKeyedVectors):
         super().__init__()
         self.model = model
     @lru_cache(None)
@@ -49,8 +51,8 @@ class Fasttext(Base):
         return dot(v1, v2) / max((norm(v1) * norm(v2)), 1e-8)
 
 
-class Transformer(Base):
-    def __init__(self, model):
+class Transformer(Method):
+    def __init__(self, model: SentenceTransformer):
         super().__init__()
         self.model = model
     def cache(self, tokens: List[str]):

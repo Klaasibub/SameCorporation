@@ -29,7 +29,7 @@ class SentenceProcessingPipeline:
             self.case = lambda s: s.lower()
             self.stopwords = set([w.lower() for w in self.stopwords])
     @lru_cache(None)
-    def __call__(self, sentence):
+    def __call__(self, sentence: str):
         filtered_tokens = []
         sentence = self.punkt(sentence)
         sentence = self.case(sentence)
