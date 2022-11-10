@@ -1,5 +1,6 @@
 import nltk
 import string
+import pandas as pd
 from functools import lru_cache
 from nltk.stem import PorterStemmer
 from utils import word_frequency, freq_to_set
@@ -40,7 +41,7 @@ class SentenceProcessingPipeline:
             filtered_tokens.append(token)
         return tuple(filtered_tokens)
     @classmethod
-    def with_df_freq_words(cls, df, top_n, names=["name_1", "name_2"], **kwargs):
+    def with_df_freq_words(cls, df: pd.DataFrame, top_n: int, names=["name_1", "name_2"], **kwargs):
         tokenizer = str.split
         if "tokenizer" in kwargs:
             tokenizer = kwargs["tokenizer"]
@@ -49,7 +50,7 @@ class SentenceProcessingPipeline:
         return cls(stopwords=freq, **kwargs)
 
 
-def tokenize(dfc, top_n, names=["name_1", "name_2"], **kwargs):
+def tokenize(dfc: pd.DataFrame, top_n: int, names=["name_1", "name_2"], **kwargs):
     spp = SentenceProcessingPipeline.with_df_freq_words(
         dfc, top_n, names=names, **kwargs
     )

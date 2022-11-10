@@ -3,12 +3,13 @@ import pickle
 import nmslib
 import gradio as gr
 from sentence_transformers import SentenceTransformer
+from typing import Callable, Dict
 
 
 K = 5
 
 
-def create_demo(callback):
+def create_demo(callback: Callable):
     with gr.Blocks() as demo:
         with gr.Row():
             with gr.Column():
@@ -24,7 +25,7 @@ def create_demo(callback):
 
 
 class Callback:
-    def __init__(self, model, data):
+    def __init__(self, model, data: Dict):
         self.index = nmslib.init(method='hnsw', space='cosinesimil')
         self.index.addDataPointBatch(data["emb"])
         self.index.createIndex({'post': 2}, print_progress=True)
@@ -38,7 +39,7 @@ class Callback:
         return names
 
 
-def load_data(filename):
+def load_data(filename: str):
     with open(filename, "rb") as file:
         data = pickle.load(file)
     return data

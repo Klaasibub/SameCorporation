@@ -2,7 +2,7 @@
 ## About
 Find Similar Companies is a project that will allow you to find the most simmilar company names for your given input.
 For the development of this project, both general techniques from NLP and machine learning are used.  
-This project are published on [hugging face spaces](https://huggingface.co/spaces/Vsevolod/find-similar-companies)! Own production model are also present on [hugging face models](https://huggingface.co/Vsevolod/company-names-similarity-sentence-transformer).
+This project are published on [hugging face spaces](https://huggingface.co/spaces/Vsevolod/find-similar-companies)! Our production model are also present on [hugging face models](https://huggingface.co/Vsevolod/company-names-similarity-sentence-transformer).
 
 ![Score](./media/same.png)  
 
