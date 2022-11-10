@@ -7,9 +7,16 @@ gunicorn==20.1.*
 fastapi==0.83.*
 python-multipart==0.0.5
 # ML
+nltk
+pylev
 pandas
 seaborn
 sklearn
-compress-fasttext
+matplotlib
 gdown
-abydos==0.5.0  # Discounted Levenshtein
+torch
+gensim
+compress-fasttext
+sentence_transformers
+gradio
+nmslib
