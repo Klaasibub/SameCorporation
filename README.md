@@ -43,6 +43,7 @@ python src/server.py
 | fastText cosine similarity   | 0.409      | 0.9916     | 0.4629     | 0.3664     | 15.0971     |
 | sentence-bert (pretrained)   | 0.4459     | 0.9925     | 0.4223     | 0.4724     | 14.9001     |
 | sentence-bert (fine-tuned)   | **0.8815** | **0.9982** | **0.8642** | **0.8996** | 15.2045     |
+
 Performance is a value (in seconds) for which the entire dataset (500k rows) is processed by method.
 For fastText and sentence-bert methods sentences embeddings are cached.
 Also, for sentence-bert, caching done by passing all unique names (17k samples) in one batch.
